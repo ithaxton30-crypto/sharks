@@ -10,6 +10,8 @@ website:
       - about.qmd
       - href: map.qmd
         text: Map
+      - href: trends.qmd
+        text: Trends
 
 format:
   html:

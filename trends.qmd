@@ -1,0 +1,34 @@
+---
+title: "Trends"
+---
+
+```{r}
+#| message: false
+
+library(tidyverse)
+```
+
+```{r}
+attacks <- read_rds("data/attacks.rds")
+```
+
+```{r}
+activities_with_50 <- attacks |>
+  count(Activity, name = "attacks") |>
+  filter(attacks >= 50)
+
+fatal_by_activity <- attacks |>
+  semi_join(activities_with_50, by = "Activity") |>
+  filter(Fatal_clean != "Unknown") |>
+  count(Activity, Fatal_clean, name = "attacks")
+
+ggplot(fatal_by_activity, aes(x = reorder(Activity, attacks, sum), y = attacks, fill = Fatal_clean)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Fatal vs non-fatal shark attacks by activity",
+    x = "Activity",
+    y = "Number of attacks",
+    fill = "Outcome"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
