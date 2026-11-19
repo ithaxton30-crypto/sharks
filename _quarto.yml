@@ -8,6 +8,8 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: map.qmd
+        text: Map
 
 format:
   html:
@@ -17,5 +19,6 @@ format:
     css: styles.css
     toc: true
 
-
+execute:
+  echo: false
 
